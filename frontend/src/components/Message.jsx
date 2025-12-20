@@ -9,14 +9,15 @@ const Message = ({ message }) => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
-  // check who sent the message
-  const isSender = String(message?.senderId) === String(authUser?._id);
+  const senderId =
+    typeof message?.senderId === "object"
+      ? message?.senderId?._id
+      : message?.senderId;
+
+  const isSender = String(senderId) === String(authUser?._id);
 
   return (
-    <div
-      ref={scroll}
-      className={`chat ${isSender ? "chat-end" : "chat-start"}`}
-    >
+    <div ref={scroll} className={`chat ${isSender ? "chat-end" : "chat-start"}`}>
       <div
         className={`chat-bubble ${
           isSender ? "bg-blue-500 text-white" : "bg-gray-200 text-black"
@@ -27,5 +28,4 @@ const Message = ({ message }) => {
     </div>
   );
 };
-
 export default Message;
