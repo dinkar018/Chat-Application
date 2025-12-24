@@ -19,11 +19,12 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!authUser) return;
+    if (!authUser?._id) return;
 
     const socket = connectSocket(authUser._id);
 
     const handleOnlineUsers = (users) => {
+      console.log("🟢 Online users from server:", users);
       dispatch(setOnlineUsers(users));
     };
 
@@ -33,7 +34,7 @@ function App() {
       socket.off("getOnlineUsers", handleOnlineUsers);
       disconnectSocket();
     };
-  }, [authUser]);
+  }, [authUser?._id, dispatch]);
 
   return (
     <div className="p-4 h-screen flex items-center justify-center">

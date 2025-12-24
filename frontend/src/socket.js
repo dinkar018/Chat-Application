@@ -4,11 +4,12 @@ import { BASE_URL } from "./config";
 let socket = null;
 
 export const connectSocket = (userId) => {
-  if (socket) return socket;
+  if (socket && socket.connected) return socket;
 
   socket = io(BASE_URL, {
     query: { userId },
     withCredentials: true,
+    autoConnect: true,
   });
 
   return socket;

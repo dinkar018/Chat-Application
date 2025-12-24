@@ -28,7 +28,7 @@ app.use("/api/v1/user",userRoute);
 app.use("/api/v1/message",messageRoute);
  
 
-server.listen(PORT, ()=>{
+server.listen(PORT,"0.0.0.0", ()=>{
     connectDB();
     console.log(`Server listen at port ${PORT}`);
 });
